@@ -24,7 +24,7 @@
 <body class="app">
     <header class="app-header fixed-top">
         @include('layouts.topbar')
-//app-header-inner-->
+
         @include('layouts.sidebar')
     </header><!--//app-header-->
 

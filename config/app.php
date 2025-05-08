@@ -1,6 +1,12 @@
 <?php
 
+use App\Helpers\ConfigHelper;
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\ServiceProvider;
+
 return [
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -123,4 +129,11 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+
+    'aliases' => Facade::defaultaliases()->merge([
+        'AppNameGetter' => ConfigHelper::class
+    ])->toArray(),
 ];
+
+
+
