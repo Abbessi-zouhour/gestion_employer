@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Notifications\SendEmailToAdminAfterRegistrationNotification;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Exception;
 
@@ -60,6 +61,7 @@ class AdminController extends Controller
                         $code, $user->email
                     ));
 
+                    // Redidriger l'utilisateur vers une URL
                     return redirect()->route('administrateurs')->with('success_message','Administrateur ajouté');
 
                 }catch(Exception $e){
@@ -87,12 +89,33 @@ class AdminController extends Controller
         }
     }
 
-    public function delete(User $user){
-        try{
-            //Logique de suppression
-        }catch(Exception $e){
-            // dd($e);
-            throw new Exception('Une erreur est survenue lors de la suppression du compte de l\'admin');
+    public function destroy(User $user)
+{
+    try {
+
+        //Logique de suppression
+
+        $connectedAdminId = Auth::user()->id;
+
+        if($connectedAdminId !== $user->id){
+        $user->delete();
+        return redirect()->back()->with('success_message', 'L\'administrateur a été retiré');
         }
+        else{
+    return redirect()->back()->with('error_message', 'vous ne pouvez pas supprimé votre compte');
+}
+
+    } catch (\Exception $e) {
+        throw new \Exception("Une erreur est survenue lors de la suppression de l'administrateur.");
+    }
+}
+
+
+    public function defineAccess($email){
+        dd($email);
+
+        $checkUserExist = User::where('email', $email)->first();
+
+        dd($checkUserExist);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PaymentController;
 use App\Models\Departement;
 use Illuminate\Support\Facades\Route;
 
@@ -49,8 +50,13 @@ Route::middleware('auth')->group(function(){
         Route::get('/', [AdminController::class, 'index'])->name('administrateurs');
         Route::get('/create', [AdminController::class, 'create'])->name('administrateurs.create');
         Route::post('/create', [AdminController::class, 'store'])->name('administrateurs.store');
-        Route::get('/edit/{administrateur}', [AdminController::class, 'edit'])->name('administrateurs.edit');
-        Route::put('/edit/{administrateur}', [AdminController::class, 'update'])->name('administrateurs.update');
-        Route::put('/delete/{administrateur}', [AdminController::class, 'delete'])->name('administrateurs.delete');
+        Route::delete('/delete/{user}', [AdminController::class, 'destroy'])->name('administrateurs.delete');
+
+        Route::get('/validate-account/{email}', [AdminController::class, 'defineAccess']);
+    });
+
+    Route::prefix('payment')->group(function(){
+        Route::get('/', [PaymentController::class, 'index'])->name('payments');
+
     });
 });
