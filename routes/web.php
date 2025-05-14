@@ -9,6 +9,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PaymentController;
 use App\Models\Departement;
 use Illuminate\Support\Facades\Route;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::post('/', [AuthController::class, 'handleLogin'])->name('handleLogin');
@@ -57,6 +59,8 @@ Route::middleware('auth')->group(function(){
 
     Route::prefix('payment')->group(function(){
         Route::get('/', [PaymentController::class, 'index'])->name('payments');
-
+        Route::get('/init', [PaymentController::class, 'initPayment'])->name('payment.init');
+        Route::get('/download-invoice/{payment}', [PaymentController::class, 'downloadInvoice'])->name('payment.download');
     });
+
 });

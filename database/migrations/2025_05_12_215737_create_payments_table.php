@@ -20,7 +20,7 @@ return new class extends Migration
             $table->dateTime('launch_date');
             $table->dateTime('done_date');
             $table->enum('status', ['SUCCESS', 'FAILED'])->default('SUCCESS');
-            $table->enum('month', ['JANVIER', 'FEVRIER', 'MARS', 'AVRIL', 'MAI', 'JUIN', 'JUILLET', 'SEPTEMBRE', 'OCTOBRE', 'NOVEMBRE', 'DECEMBRE']);
+            $table->enum('month', ['JANVIER', 'FEVRIER', 'MARS', 'AVRIL', 'MAI', 'JUIN', 'JUILLET', 'AUGUST','SEPTEMBRE', 'OCTOBRE', 'NOVEMBRE', 'DECEMBRE']);
             $table->string('year');
             $table->timestamps();
         });

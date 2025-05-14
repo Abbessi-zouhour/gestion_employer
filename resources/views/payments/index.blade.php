@@ -12,7 +12,7 @@
 
                 <div class="col-auto">
 
-                    <a class="btn app-btn-secondary" href="{{ route('administrateurs.create') }}">
+                    <a class="btn app-btn-secondary" href="{{ route('payment.init') }}">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
 <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
@@ -64,6 +64,7 @@
                                 <th class="cell">Mois</th>
                                 <th class="cell">Année</th>
                                 <th class="cell">Statut</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,18 +73,35 @@
 
                             <tr>
                                 <td class="cell">{{ $payment->reference }}</td>
-                                <td>{{ $payment->name }}</td>
-                                <td>{{ $payment->email }}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>
+                                    {{ $payment->employer->nom }}
+                                    {{ $payment->employer->prenom }}
+                                </td>
+                                <td>{{ $payment->amount }}</td>
+                                <td>{{ date('d-m-Y', strtotime($payment->launch_date)) }}</td>
+                                <td>
+                                    {{ $payment->month }}
+                                </td>
+                                <td> {{ $payment->year }} </td>
+                                <td>
+                                    <button class="btn btn-success btn-sm">
+                                        {{ $payment->status }}
+                                    </button>
+                                </td>
                                 <td class="cell">
-                                    <form action="{{ route('administrateurs.delete', $admin->id) }}" method="POST" style="display:inline;">
-    @csrf
-    @method('DELETE')
-    <button type="submit" class="btn-sm app-btn-secondary" onclick="return confirm('Êtes-vous sûr ?')">Supprimer</button>
-</form>
+                                    <a href="{{ route('payment.download', $payment->id) }}">
+                                        <i class="fa fa-download">
+                                        </i>
+                                    </a>
+                                </td>
+                                <td class="cell">
+                                    {{--  " method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                        class="btn-sm app-btn-secondary"
+                                        onclick="return confirm('Êtes-vous sûr ?')">Supprimer</button>
+                                    </form>}}--}}
 
                                 </td>
                             </tr>

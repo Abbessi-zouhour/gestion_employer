@@ -4,6 +4,7 @@ use App\Helpers\ConfigHelper;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
+
 return [
 
 
@@ -129,10 +130,24 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'Providers' => ServiceProvider::defaultProviders()->merge([
+    /*
+     * Package Service Providers...
+     */
 
-    'aliases' => Facade::defaultaliases()->merge([
-        'AppNameGetter' => ConfigHelper::class
+    /*
+     * Application Service Providers...
+     */
+    Barryvdh\DomPDF\ServiceProvider::class,
+    App\Providers\AppServiceProvider::class,
+
+
     ])->toArray(),
+
+    'aliases' => Facade::defaultAliases()->merge([
+    'AppNameGetter' => ConfigHelper::class,
+    'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
+])->toArray(),
 ];
 
 
