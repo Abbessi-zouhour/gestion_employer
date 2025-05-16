@@ -16,7 +16,7 @@
         <div class="app-card app-card-settings shadow-sm p-4">
 
             <div class="app-card-body">
-                <form class="settings-form" method="POST" action="{{ route('departements.update', $departement->id) }}">
+                <form class="settings-form" method="POST" action="{{ route('departement.update', $departement->id) }}">
                     @csrf
                     @method('PUT')
 
